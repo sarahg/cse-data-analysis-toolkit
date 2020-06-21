@@ -9,14 +9,14 @@ Python scripts for extracting various stats from support data.
 
 # Go get your own damn data
 
-* Grab a CSV export from Intercom here: 
-** Filter this by your desired date range, these scripts don't do that (yet).
-** Save this to the `csv` directory and name it `inbox-data.csv` (or modify `intercom.py` to match your data file name).
+* Grab a CSV export from Intercom. 
+  - Filter this by your desired date range, these scripts don't do that (yet).
+  - Save this to the `csv` directory and name it `inbox-data.csv` (or modify `intercom.py` to match your data file name).
 
-* If needed, you can modify the CSE-By-Team data set here:
-https://docs.google.com/spreadsheets/d/1ZyaQqUG3kGZLNvWALqLf6Q9NTWdKyrqt729oFNAtwvU/edit?usp=sharing
-** Save this as a CSV to `csv/cses_by_team.csv`.
-** If adding a new teammember, make sure their name in the CSV matches their display name in Intercom.
+* If needed, you can modify the CSE-By-Team data set on [Google Sheets](
+https://docs.google.com/spreadsheets/d/1ZyaQqUG3kGZLNvWALqLf6Q9NTWdKyrqt729oFNAtwvU/edit?usp=sharing).
+  - Save this as a CSV to `csv/cses_by_team.csv`.
+  - If adding a new teammember, make sure their name in the CSV matches their display name in Intercom.
 
 --
 
