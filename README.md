@@ -4,19 +4,35 @@ Python scripts for extracting various stats from support data.
 
 # Installation
 
-* Clone this repository to your local machine.
-* Run `pip install` to pull down dependencies.
+- Clone this repository to your local machine.
+- Run `pip install` to pull down dependencies.
 
-# Go get your own damn data
+# Tools
 
-* Grab a CSV export from Intercom here: 
-** Filter this by your desired date range, these scripts don't do that (yet).
-** Save this to the `csv` directory and name it `inbox-data.csv` (or modify `intercom.py` to match your data file name).
+## intercom.py
 
-* If needed, you can modify the CSE-By-Team data set here:
-https://docs.google.com/spreadsheets/d/1ZyaQqUG3kGZLNvWALqLf6Q9NTWdKyrqt729oFNAtwvU/edit?usp=sharing
-** Save this as a CSV to `csv/cses_by_team.csv`.
-** If adding a new teammember, make sure their name in the CSV matches their display name in Intercom.
+Displays the chat-to-ticket conversation ratio for each CSE.
+
+### Usage:
+
+- Grab a CSV export from Intercom.
+  ** Filter this by your desired date range, these scripts don't do that.
+  ** Save this to the `csv` directory and name it `inbox-data.csv` (or modify `intercom.py` to match your data file name).
+
+- If needed, you can modify the CSE-By-Team data set here:
+  https://docs.google.com/spreadsheets/d/1ZyaQqUG3kGZLNvWALqLf6Q9NTWdKyrqt729oFNAtwvU/edit?usp=sharing
+  ** Save this as a CSV to `csv/cses_by_team.csv`.
+  ** If adding a new teammember, make sure their name in the CSV matches their display name in Intercom.
+
+## core-updates.py
+
+Visualizes the impact of core updates on support volume.
+
+### Usage
+
+1. Clone the 3 upstreams (drops-7, drops-8, wordpress) to ~/sites/upstreams.
+2. Run `util/upstream-releases.sh` to update releases text files.
+3. Run `reports/core-updates.py`.
 
 --
 
