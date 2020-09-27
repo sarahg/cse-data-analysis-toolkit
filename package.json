@@ -4,8 +4,7 @@
   "description": "Various scripts to analyze Support data.",
   "main": "bin/zendesk-search.js",
   "dependencies": {
-    "csv-writer": "^1.6.0",
-    "zendesk-node-api": "^1.3.0"
+    "zendesk-node-api": "git@github.com:sarahg/zendesk-node-api.git"
   },
   "devDependencies": {},
   "scripts": {
