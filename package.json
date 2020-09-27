@@ -2,8 +2,9 @@
   "name": "cse-data-analysis-toolkit",
   "version": "1.0.0",
   "description": "Various scripts to analyze Support data.",
-  "main": "index.js",
+  "main": "bin/zendesk-search.js",
   "dependencies": {
+    "csv-writer": "^1.6.0",
     "zendesk-node-api": "^1.3.0"
   },
   "devDependencies": {},
