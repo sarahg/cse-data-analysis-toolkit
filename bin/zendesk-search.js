@@ -26,9 +26,9 @@ const CUSTOM_FIELD_ID_SUPPORT_PLAN = 360026878833;
 
 let query = ""; // Put your search string here or define it in subsequent code.
 
-let assignees = ["Tom Mount", "Doug Cone", "Steven Zipfel", "Eladio Abquina"]; // Technical Services
+//let assignees = ["Tom Mount", "Doug Cone", "Steven Zipfel", "Eladio Abquina"]; // Technical Services
 //let assignees = ["Tara Rowell", "Chame Abbey"]; // Platform Services
-//let assignees = ["Omar Bickell", "Jordana Fung"]; // Managed Updates
+let assignees = ["Omar Bickell", "Jordana Fung"]; // Managed Updates
 
 for (const human in assignees) {
   query += "assignee:%22" + assignees[human].replace(" ", "%20") + "%22";
@@ -47,7 +47,7 @@ writeStream.write(header, () => {
   // Run a Zendesk search.
   let tickets = zendesk.search.list("query=" + query);
 
-  // Retrieve ticket details for tickets returned by search, and write the row to our CSV.
+  // Retrieve details for each ticket returned by the search, and write a row to our CSV.
   Promise.all([tickets]).then(function (results) {
     for (const key in results[0]) {
       zendesk.tickets.show(results[0][key].id).then(function (ticket) {
