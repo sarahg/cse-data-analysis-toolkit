@@ -44,21 +44,13 @@ let header =
   "Ticket ID,Created,Subject,Assignee ID,Group ID,Comment Count,Chat,Emergency,Support Plan\n";
 
 writeStream.write(header, () => {
-  let ticketIDs = [];
   // Run a Zendesk search.
-  let allTickets = zendesk.search
-    .list("query=" + query)
-    .then(function (ticketList) {
-      for (const key in ticketList) {
-        ticketIDs.push(ticketList[key].id);
-      }
-      return ticketIDs;
-    });
+  let tickets = zendesk.search.list("query=" + query);
 
   // Retrieve ticket details for tickets returned by search, and write the row to our CSV.
-  Promise.all([allTickets]).then(function (ticketIDs) {
-    for (const tid in ticketIDs[0]) {
-      zendesk.tickets.show(ticketIDs[0][tid]).then(function (ticket) {
+  Promise.all([tickets]).then(function (results) {
+    for (const key in results[0]) {
+      zendesk.tickets.show(results[0][key].id).then(function (ticket) {
         let emergency = tagCheck(ticket, "on-call");
         let chat = tagCheck(ticket, "chat");
 
