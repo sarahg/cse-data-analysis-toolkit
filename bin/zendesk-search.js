@@ -37,21 +37,26 @@ let writeStream = fs.createWriteStream(
   __dirname + "/../csv/adv-search-results/zd-search-" + Date.now() + ".csv"
 );
 
-let header =
-  "Ticket ID,Created,Subject,Off-hours,Assignee ID,Group ID,Emergency\n";
+let header = "Ticket ID,Created,Subject,Assignee ID,Group ID,Emergency\n";
 
 writeStream.write(header, () => {
-  zendesk.search.list("query=" + query).then(function (ticketList) {
-    // @todo Measure difficulty via comment count.
-
-    for (const key in ticketList) {
-      let emergency = "N";
-      if (ticketList[key].tags.includes("on-call")) {
-        emergency = "Y";
+  let ticketRows = [];
+  let allTickets = zendesk.search
+    .list("query=" + query)
+    .then(function (ticketList) {
+      for (const key in ticketList) {
+        let emergency = "N";
+        if (ticketList[key].tags.includes("on-call")) {
+          emergency = "Y";
+        }
+        ticketRows.push(`${ticketList[key].id},${ticketList[key].created_at},"${ticketList[key].subject.replace(/"/g, '""')}",${ticketList[key].assignee_id},${ticketList[key].group_id},${emergency}`); // prettier-ignore
       }
+      return ticketRows;
+    });
 
-      let ticket = `${ticketList[key].id},${ticketList[key].created_at},"${ticketList[key].subject.replace(/"/g, '""')}",${ticketList[key].assignee_id},${ticketList[key].group_id},${emergency}`; // prettier-ignore
-      writeStream.write(ticket + "\n");
+  Promise.all([allTickets]).then(function (ticketRows) {
+    for (const row in ticketRows[0]) {
+      writeStream.write(ticketRows[0][row] + "\n");
     }
   });
 });
