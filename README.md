@@ -5,9 +5,19 @@ Python scripts for extracting various stats from support data.
 # Installation
 
 - Clone this repository to your local machine.
-- Run `pip install` to pull down dependencies.
+- Run `pip install && npm install` to pull down dependencies.
 
 # Tools
+
+## zendesk-search.js
+
+Run an advanced search of Zendesk and export results to CSV for further analysis.
+
+### Usage
+
+- Modify `bin/zendesk-search.js` to include your desired search (@todo link to examples).
+- Run the script: `node bin/zendesk-search.js`
+- Utilize the CSV exported into `csv/advanced-search-results`
 
 ## intercom.py
 
