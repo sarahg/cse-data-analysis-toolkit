@@ -24,24 +24,27 @@ const CUSTOM_FIELD_ID_SUPPORT_PLAN = 360026878833;
  * Usage examples: https://gist.github.com/sarahg/1a35fe9cc336e65261a631f9a36eca83
  */
 
-let query = ""; // Put your search string here or define it in subsequent code.
+//let query = "Secure Integration"; // Put your search string here or define it in subsequent code.
+//let query = "Pantheon Enterprise Gateway";
+
+//let query = "CSR";
+let query = "custom cert";
 
 //let assignees = ["Tom Mount", "Doug Cone", "Steven Zipfel", "Eladio Abquina"]; // Technical Services
 //let assignees = ["Tara Rowell", "Chame Abbey"]; // Platform Services
-let assignees = ["Omar Bickell", "Jordana Fung"]; // Managed Updates
-
-for (const human in assignees) {
+//let assignees = ["Omar Bickell", "Jordana Fung"]; // Managed Updates
+/*for (const human in assignees) {
   query += "assignee:%22" + assignees[human].replace(" ", "%20") + "%22";
-}
+}*/
 
 /** You probably don't need to modify anything below this line. */
 
 let writeStream = fs.createWriteStream(
-  __dirname + "/../csv/adv-search-results/zd-search-" + Date.now() + ".csv"
+  __dirname + "/../csv/adv-search-results/CSR-zd-search-" + Date.now() + ".csv"
 );
 
 let header =
-  "Ticket ID,Created,Subject,Assignee ID,Group ID,Comment Count,Chat,Emergency,Support Plan\n";
+  "Ticket ID,Subject,Support Plan,Comments,Chat,Emergency,Created date,Created time\n";
 
 writeStream.write(header, () => {
   // Run a Zendesk search.
@@ -58,8 +61,14 @@ writeStream.write(header, () => {
           (x) => x.id === CUSTOM_FIELD_ID_SUPPORT_PLAN
         );
 
+        // Break the "created" date
+        let created_at = new Date(ticket.created_at);
+        let created_local = created_at.toLocaleString().split(", ");
+        let created_date = created_local[0];
+        let created_time = created_local[1];
+
         writeStream.write(
-          `${ticket.id},${ticket.created_at},"${ticket.subject.replace(/"/g, '""')}",${ticket.assignee_id},${ticket.group_id},${ticket.comment_count},${chat},${emergency},${support_plan.value}` + "\n" // prettier-ignore
+          `${ticket.id},"${ticket.subject.replace(/"/g, '""')}",${support_plan.value},${ticket.comment_count},${chat},${emergency},${created_date},${created_time}` + "\n" // prettier-ignore
         );
       });
     }
